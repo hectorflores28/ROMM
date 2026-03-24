@@ -1,0 +1,22 @@
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Environment Variables
+.env
+
+# ROMM Data
+library/roms/*
+!library/roms/.gitkeep
+assets/*
+!assets/.gitkeep
+resources/*
+!resources/.gitkeep
+config/config.yml.bak
+
+# Database
+romm-db-data/
+
+# OS files
+.DS_Store
+Thumbs.db

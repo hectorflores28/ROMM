@@ -1,0 +1,54 @@
+services:
+  romm:
+    build: .
+    image: rommapp/romm:latest
+    container_name: romm
+    restart: always
+    environment:
+      - ROMM_DB_DRIVER=mariadb
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWD=${DB_PASSWD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - ROMM_AUTH_SECRET_KEY=${ROMM_AUTH_SECRET_KEY}
+      - ROMM_LIBRARY_DIR=${ROMM_LIBRARY_DIR}
+      - ROMM_RESOURCES_DIR=${ROMM_RESOURCES_DIR}
+      - ROMM_CONFIG_PATH=${ROMM_CONFIG_PATH}
+      - HOST=${HOST}
+    volumes:
+      - ./library:/romm/library
+      - ./resources:/romm/resources
+      - ./config:/romm/config
+      - ./assets:/romm/assets
+      # - C:/xampp/htdocs/projects/romm/library:/romm/library
+      # - C:/xampp/htdocs/projects/romm/resources:/romm/resources
+      # - C:/xampp/htdocs/projects/romm/config:/romm/config
+      # - C:/xampp/htdocs/projects/romm/assets:/romm/assets
+    ports:
+      - "${PORT}:8080"
+    depends_on:
+      romm-db:
+        condition: service_healthy
+
+  romm-db:
+    image: mariadb:10.11
+    container_name: romm-db
+    restart: always
+    environment:
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+    volumes:
+      - romm-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MARIADB_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  romm-db-data:
+

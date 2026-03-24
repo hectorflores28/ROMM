@@ -1,0 +1,7 @@
+romm:
+  library:
+    path: /romm/library
+  resources:
+    path: /romm/resources
+  assets:
+    path: /romm/assets
