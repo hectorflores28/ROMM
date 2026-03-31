@@ -22,3 +22,6 @@ La misma configuración funciona tanto para **Windows** como para **Ubuntu** (Li
    ```
 6. **Disfruta**: 
    Abre tu navegador y entra a `http://localhost:<PUERTO>` (el puerto que definiste en tu `.env`, por defecto 666 u 8080).
+
+## 📄 Licencia
+Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) para detalles.
